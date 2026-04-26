@@ -1,0 +1,1587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NannyCare — Trusted Childcare at Your Fingertips</title>
+  <meta name="description" content="NannyCare connects busy parents with verified, trusted nannies. Book in seconds, manage subscriptions, and give your child the best care." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset & Base ──────────────────────────────────────────── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #1a1a2e;
+      background: #ffffff;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+
+    /* ── CSS Custom Properties ─────────────────────────────────── */
+    :root {
+      --primary: #7C5CFC;
+      --primary-dark: #5A3EC7;
+      --primary-light: #E1D5FF;
+      --primary-50: #F3EEFF;
+      --secondary: #FF5252;
+      --accent-gradient: linear-gradient(135deg, #7C5CFC 0%, #B08DFF 50%, #E1D5FF 100%);
+      --hero-gradient: linear-gradient(160deg, #7C5CFC 0%, #9B7FFF 40%, #C9ADFF 100%);
+      --surface: #FAFAFA;
+      --text: #1a1a2e;
+      --text-secondary: #616161;
+      --text-muted: #9E9E9E;
+      --white: #FFFFFF;
+      --shadow-sm: 0 2px 8px rgba(124,92,252,0.08);
+      --shadow-md: 0 8px 32px rgba(124,92,252,0.12);
+      --shadow-lg: 0 20px 60px rgba(124,92,252,0.18);
+      --shadow-card: 0 4px 20px rgba(0,0,0,0.06);
+      --radius-sm: 12px;
+      --radius-md: 20px;
+      --radius-lg: 28px;
+      --radius-full: 9999px;
+      --max-w: 1200px;
+      --section-py: 100px;
+    }
+
+    /* ── Utility ───────────────────────────────────────────────── */
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+    .section-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 16px; border-radius: var(--radius-full);
+      background: var(--primary-50); color: var(--primary);
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.05em;
+      text-transform: uppercase; margin-bottom: 16px;
+    }
+    .section-badge svg { width: 14px; height: 14px; }
+    .section-title {
+      font-family: 'Playfair Display', serif; font-weight: 800;
+      font-size: clamp(2rem, 4vw, 3rem); line-height: 1.15;
+      color: var(--text); margin-bottom: 16px;
+    }
+    .section-subtitle {
+      font-size: 1.1rem; color: var(--text-secondary);
+      max-width: 560px; line-height: 1.7;
+    }
+    .gradient-text {
+      background: var(--accent-gradient);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 16px 32px; border-radius: var(--radius-full);
+      font-weight: 600; font-size: 1rem;
+      transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+      cursor: pointer; border: none; outline: none;
+    }
+    .btn-primary {
+      background: var(--primary); color: var(--white);
+      box-shadow: 0 4px 20px rgba(124,92,252,0.35);
+    }
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      box-shadow: 0 8px 32px rgba(124,92,252,0.45);
+      transform: translateY(-2px);
+    }
+    .btn-outline {
+      background: transparent; color: var(--primary);
+      border: 2px solid var(--primary-light);
+    }
+    .btn-outline:hover {
+      background: var(--primary-50); border-color: var(--primary);
+    }
+    .btn-white {
+      background: rgba(255,255,255,0.2); color: var(--white);
+      border: 1.5px solid rgba(255,255,255,0.4);
+      backdrop-filter: blur(10px);
+    }
+    .btn-white:hover {
+      background: rgba(255,255,255,0.35);
+      transform: translateY(-2px);
+    }
+
+    /* ── Animations ────────────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+    @keyframes pulse-ring {
+      0% { transform: scale(0.8); opacity: 0.5; }
+      100% { transform: scale(1.4); opacity: 0; }
+    }
+    @keyframes blob {
+      0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+      50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+    }
+    .animate-on-scroll {
+      opacity: 0; transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .animate-on-scroll.visible {
+      opacity: 1; transform: translateY(0);
+    }
+
+    /* ── Nav ───────────────────────────────────────────────────── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 16px 0;
+      transition: all 0.4s ease;
+    }
+    .nav.scrolled {
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(20px) saturate(180%);
+      box-shadow: 0 1px 20px rgba(0,0,0,0.06);
+      padding: 10px 0;
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      font-weight: 800; font-size: 1.3rem;
+    }
+    .nav-logo-icon {
+      width: 40px; height: 40px; border-radius: var(--radius-sm);
+      background: var(--hero-gradient);
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 1.1rem;
+    }
+    .nav-logo span { color: var(--text); }
+    .nav-logo .highlight { color: var(--primary); }
+    .nav-links { display: flex; align-items: center; gap: 36px; }
+    .nav-links a {
+      font-size: 0.9rem; font-weight: 500; color: var(--text-secondary);
+      transition: color 0.3s; position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 2px; background: var(--primary);
+      border-radius: 2px; transition: width 0.3s;
+    }
+    .nav-links a:hover { color: var(--primary); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-cta .btn { padding: 10px 24px; font-size: 0.85rem; }
+    .nav-mobile-toggle {
+      display: none; background: none; border: none;
+      cursor: pointer; padding: 4px;
+    }
+    .nav-mobile-toggle span {
+      display: block; width: 24px; height: 2px;
+      background: var(--text); margin: 5px 0;
+      transition: all 0.3s;
+      border-radius: 2px;
+    }
+
+    /* ── Hero ──────────────────────────────────────────────────── */
+    .hero {
+      position: relative; min-height: 100vh;
+      display: flex; align-items: center;
+      background: var(--hero-gradient);
+      overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background:
+        radial-gradient(circle at 20% 80%, rgba(255,255,255,0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
+    }
+    .hero-blob {
+      position: absolute; width: 500px; height: 500px;
+      background: rgba(255,255,255,0.06);
+      animation: blob 8s ease-in-out infinite;
+    }
+    .hero-blob-1 { top: -100px; right: -100px; }
+    .hero-blob-2 { bottom: -150px; left: -100px; animation-delay: -4s; }
+    .hero .container {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 60px; align-items: center;
+      position: relative; z-index: 2;
+      padding-top: 100px; padding-bottom: 80px;
+    }
+    .hero-content { animation: fadeUp 1s ease forwards; }
+    .hero-content .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 18px; border-radius: var(--radius-full);
+      background: rgba(255,255,255,0.18);
+      backdrop-filter: blur(10px);
+      color: var(--white); font-size: 0.82rem; font-weight: 600;
+      margin-bottom: 28px;
+    }
+    .hero-badge .pulse {
+      width: 8px; height: 8px; background: #4CAF50;
+      border-radius: 50%; position: relative;
+    }
+    .hero-badge .pulse::after {
+      content: ''; position: absolute; inset: -4px;
+      border-radius: 50%; background: rgba(76,175,80,0.4);
+      animation: pulse-ring 1.5s ease-out infinite;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif; font-weight: 800;
+      font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.1;
+      color: var(--white); margin-bottom: 24px;
+    }
+    .hero-subtitle {
+      font-size: 1.15rem; color: rgba(255,255,255,0.85);
+      line-height: 1.75; max-width: 480px; margin-bottom: 40px;
+    }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 48px; }
+    .hero-stats {
+      display: flex; gap: 40px;
+    }
+    .hero-stat { text-align: left; }
+    .hero-stat-number {
+      font-size: 1.8rem; font-weight: 800; color: var(--white);
+    }
+    .hero-stat-label {
+      font-size: 0.8rem; color: rgba(255,255,255,0.7);
+      font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .hero-visual {
+      position: relative; display: flex;
+      justify-content: center; align-items: center;
+      animation: fadeIn 1.2s ease 0.3s forwards; opacity: 0;
+    }
+    .phone-mockup {
+      width: 300px; height: 620px;
+      background: var(--white);
+      border-radius: 40px;
+      box-shadow: 0 40px 100px rgba(0,0,0,0.25);
+      overflow: hidden; position: relative;
+      border: 8px solid #2a2a2a;
+    }
+    .phone-notch {
+      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 120px; height: 28px;
+      background: #2a2a2a; border-radius: 0 0 16px 16px;
+      z-index: 2;
+    }
+    .phone-screen {
+      width: 100%; height: 100%;
+      background: linear-gradient(180deg, #7C5CFC 0%, #9B7FFF 30%, #F3EEFF 30%, #FAFAFA 100%);
+      display: flex; flex-direction: column;
+      padding-top: 40px;
+    }
+    .phone-header {
+      padding: 16px 20px; color: white; text-align: center;
+    }
+    .phone-header h3 {
+      font-size: 0.85rem; font-weight: 600; margin-bottom: 2px;
+    }
+    .phone-header p { font-size: 0.65rem; opacity: 0.8; }
+    .phone-cards { padding: 0 16px; display: flex; flex-direction: column; gap: 10px; }
+    .phone-card {
+      background: white; border-radius: 14px; padding: 14px;
+      display: flex; align-items: center; gap: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    }
+    .phone-card-avatar {
+      width: 44px; height: 44px; border-radius: 12px;
+      flex-shrink: 0;
+    }
+    .phone-card-info h4 { font-size: 0.75rem; font-weight: 600; color: var(--text); }
+    .phone-card-info p { font-size: 0.6rem; color: var(--text-muted); }
+    .phone-card-rating {
+      margin-left: auto; display: flex; align-items: center; gap: 4px;
+      font-size: 0.7rem; font-weight: 700; color: #FF9800;
+    }
+    /* Floating cards around phone */
+    .float-card {
+      position: absolute; background: white; border-radius: 16px;
+      padding: 14px 18px; box-shadow: var(--shadow-lg);
+      display: flex; align-items: center; gap: 10px;
+      font-size: 0.8rem; font-weight: 600;
+      animation: float 4s ease-in-out infinite;
+      z-index: 3;
+    }
+    .float-card-icon {
+      width: 36px; height: 36px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+    }
+    .float-card-1 { top: 80px; right: -20px; animation-delay: 0s; }
+    .float-card-1 .float-card-icon { background: #E8F5E9; }
+    .float-card-2 { bottom: 120px; left: -30px; animation-delay: -2s; }
+    .float-card-2 .float-card-icon { background: #FFF3E0; }
+    .float-card-3 { top: 200px; left: -40px; animation-delay: -1s; }
+    .float-card-3 .float-card-icon { background: var(--primary-50); }
+
+    /* ── Features ──────────────────────────────────────────────── */
+    .features {
+      padding: var(--section-py) 0;
+      background: var(--white);
+    }
+    .features-header {
+      text-align: center; margin-bottom: 64px;
+    }
+    .features-header .section-subtitle {
+      margin: 0 auto;
+    }
+    .features-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .feature-card {
+      background: var(--white);
+      border: 1px solid #f0ecf9;
+      border-radius: var(--radius-md);
+      padding: 36px 28px;
+      transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+      position: relative; overflow: hidden;
+    }
+    .feature-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 3px; background: var(--accent-gradient);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    .feature-card:hover::before { transform: scaleX(1); }
+    .feature-card:hover {
+      border-color: var(--primary-light);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-6px);
+    }
+    .feature-icon {
+      width: 56px; height: 56px; border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; margin-bottom: 20px;
+      background: var(--primary-50);
+    }
+    .feature-card h3 {
+      font-size: 1.15rem; font-weight: 700; margin-bottom: 10px;
+      color: var(--text);
+    }
+    .feature-card p {
+      font-size: 0.92rem; color: var(--text-secondary); line-height: 1.65;
+    }
+
+    /* ── Trained Nannies ───────────────────────────────────────── */
+    .trained {
+      padding: var(--section-py) 0;
+      background: var(--surface);
+      position: relative; overflow: hidden;
+    }
+    .trained::after {
+      content: ''; position: absolute; top: -120px; right: -120px;
+      width: 400px; height: 400px; border-radius: 50%;
+      background: var(--primary-50); opacity: 0.5;
+    }
+    .trained-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 64px; align-items: center;
+      position: relative; z-index: 1;
+    }
+    .trained-visual {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .trained-card {
+      background: var(--white); border-radius: var(--radius-md);
+      padding: 28px 24px; text-align: center;
+      border: 1px solid #f0ecf9;
+      transition: all 0.4s ease;
+    }
+    .trained-card:hover {
+      box-shadow: var(--shadow-md); transform: translateY(-6px);
+      border-color: var(--primary-light);
+    }
+    .trained-card:nth-child(2) { transform: translateY(24px); }
+    .trained-card:nth-child(2):hover { transform: translateY(18px); }
+    .trained-card:nth-child(3) { transform: translateY(-12px); }
+    .trained-card:nth-child(3):hover { transform: translateY(-18px); }
+    .trained-card-icon {
+      width: 64px; height: 64px; border-radius: 20px;
+      margin: 0 auto 16px; display: flex;
+      align-items: center; justify-content: center;
+      font-size: 1.8rem;
+    }
+    .trained-card h4 {
+      font-size: 1rem; font-weight: 700; margin-bottom: 6px; color: var(--text);
+    }
+    .trained-card p {
+      font-size: 0.82rem; color: var(--text-secondary); line-height: 1.55;
+    }
+    .trained-content .checklist {
+      margin-top: 28px;
+    }
+    .checklist-item {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 12px 0;
+      border-bottom: 1px solid #f0ecf9;
+    }
+    .checklist-item:last-child { border-bottom: none; }
+    .checklist-icon {
+      width: 32px; height: 32px; border-radius: 10px;
+      background: #E8F5E9; color: #4CAF50;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; font-size: 0.9rem; font-weight: 700;
+    }
+    .checklist-item h4 { font-size: 0.95rem; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+    .checklist-item p { font-size: 0.84rem; color: var(--text-secondary); line-height: 1.5; }
+
+    /* ── Flexibility CTA ───────────────────────────────────────── */
+    .flex-cta {
+      padding: 80px 0;
+      background: var(--white);
+    }
+    .flex-cta-card {
+      background: linear-gradient(135deg, #1a1a2e 0%, #2d1b69 50%, #3D2A8A 100%);
+      border-radius: var(--radius-lg);
+      padding: 64px;
+      position: relative; overflow: hidden;
+    }
+    .flex-cta-card::before {
+      content: ''; position: absolute; inset: 0;
+      background:
+        radial-gradient(circle at 20% 80%, rgba(124,92,252,0.3) 0%, transparent 50%),
+        radial-gradient(circle at 90% 10%, rgba(201,173,255,0.2) 0%, transparent 40%);
+    }
+    .flex-cta-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 40px; position: relative; z-index: 1;
+    }
+    .flex-cta-item {
+      text-align: center; padding: 32px 20px;
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      transition: all 0.4s ease;
+    }
+    .flex-cta-item:hover {
+      background: rgba(255,255,255,0.12);
+      transform: translateY(-6px);
+      border-color: rgba(255,255,255,0.25);
+    }
+    .flex-cta-icon {
+      width: 72px; height: 72px; border-radius: 50%;
+      margin: 0 auto 20px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem;
+      background: rgba(124,92,252,0.25);
+      border: 2px solid rgba(255,255,255,0.15);
+    }
+    .flex-cta-item h3 {
+      font-size: 1.2rem; font-weight: 700; color: var(--white);
+      margin-bottom: 8px;
+    }
+    .flex-cta-item p {
+      font-size: 0.9rem; color: rgba(255,255,255,0.7);
+      line-height: 1.65;
+    }
+    .flex-cta-item .cta-highlight {
+      display: inline-block; margin-top: 16px;
+      padding: 8px 20px; border-radius: var(--radius-full);
+      font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+    .flex-cta-header {
+      text-align: center; margin-bottom: 48px;
+      position: relative; z-index: 1;
+    }
+    .flex-cta-header h2 {
+      font-family: 'Playfair Display', serif; font-weight: 800;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem); color: var(--white);
+      line-height: 1.2; margin-bottom: 12px;
+    }
+    .flex-cta-header p {
+      font-size: 1.05rem; color: rgba(255,255,255,0.7);
+      max-width: 600px; margin: 0 auto;
+    }
+    .flex-arrow {
+      display: flex; justify-content: center; align-items: center;
+      margin-top: 40px; gap: 12px; position: relative; z-index: 1;
+    }
+    .flex-arrow .arrow-line {
+      width: 80px; height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    }
+    .flex-arrow .arrow-text {
+      color: rgba(255,255,255,0.5); font-size: 0.82rem;
+      font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 1024px) {
+      .trained-inner { grid-template-columns: 1fr; }
+      .flex-cta-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .trained-visual { grid-template-columns: 1fr 1fr; }
+      .trained-card:nth-child(2),
+      .trained-card:nth-child(3) { transform: none; }
+      .trained-card:nth-child(2):hover,
+      .trained-card:nth-child(3):hover { transform: translateY(-6px); }
+      .flex-cta-card { padding: 40px 24px; }
+    }
+
+    /* ── How It Works ──────────────────────────────────────────── */
+    .how-it-works {
+      padding: var(--section-py) 0;
+      background: var(--surface);
+    }
+    .how-header { text-align: center; margin-bottom: 72px; }
+    .how-header .section-subtitle { margin: 0 auto; }
+    .steps {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 20px; position: relative;
+    }
+    .steps::before {
+      content: ''; position: absolute;
+      top: 48px; left: 10%; right: 10%;
+      height: 2px; background: var(--primary-light);
+    }
+    .step {
+      text-align: center; position: relative;
+      padding: 0 12px;
+    }
+    .step-number {
+      width: 96px; height: 96px; border-radius: 50%;
+      background: var(--white);
+      border: 3px solid var(--primary-light);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 24px;
+      font-size: 2rem;
+      position: relative; z-index: 1;
+      transition: all 0.3s;
+    }
+    .step:hover .step-number {
+      background: var(--primary);
+      border-color: var(--primary);
+      transform: scale(1.08);
+      box-shadow: 0 8px 30px rgba(124,92,252,0.3);
+    }
+    .step:hover .step-number span { filter: brightness(10); }
+    .step h3 {
+      font-size: 1.05rem; font-weight: 700;
+      margin-bottom: 8px; color: var(--text);
+    }
+    .step p {
+      font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;
+    }
+
+    /* ── Nanny Showcase ────────────────────────────────────────── */
+    .nanny-showcase {
+      padding: var(--section-py) 0;
+      background: var(--white);
+    }
+    .nanny-header { text-align: center; margin-bottom: 56px; }
+    .nanny-header .section-subtitle { margin: 0 auto; }
+    .nanny-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .nanny-card {
+      background: var(--white); border-radius: var(--radius-md);
+      overflow: hidden; border: 1px solid #f0ecf9;
+      transition: all 0.4s ease; position: relative;
+    }
+    .nanny-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-8px);
+    }
+    .nanny-card-img {
+      height: 200px; background-size: cover;
+      background-position: center; position: relative;
+    }
+    .nanny-card-img::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.4) 100%);
+    }
+    .nanny-card-badge {
+      position: absolute; top: 12px; right: 12px; z-index: 1;
+      padding: 4px 12px; border-radius: var(--radius-full);
+      font-size: 0.7rem; font-weight: 600; color: white;
+    }
+    .badge-online { background: #4CAF50; }
+    .badge-offline { background: var(--text-muted); }
+    .nanny-card-body { padding: 20px; }
+    .nanny-card-body h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 6px; }
+    .nanny-card-meta {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 10px;
+    }
+    .nanny-card-meta svg { width: 14px; height: 14px; }
+    .nanny-specialties {
+      display: flex; flex-wrap: wrap; gap: 6px;
+    }
+    .nanny-specialties span {
+      padding: 4px 10px; border-radius: var(--radius-full);
+      background: var(--primary-50); color: var(--primary);
+      font-size: 0.7rem; font-weight: 500;
+    }
+    .nanny-card-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 20px; border-top: 1px solid #f5f0ff;
+    }
+    .nanny-rate {
+      font-size: 1.1rem; font-weight: 800; color: var(--primary);
+    }
+    .nanny-rate small { font-weight: 500; font-size: 0.75rem; color: var(--text-muted); }
+
+    /* ── Pricing ───────────────────────────────────────────────── */
+    .pricing {
+      padding: var(--section-py) 0;
+      background: var(--surface);
+    }
+    .pricing-header { text-align: center; margin-bottom: 56px; }
+    .pricing-header .section-subtitle { margin: 0 auto; }
+    .pricing-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 24px; align-items: stretch;
+    }
+    .pricing-card {
+      background: var(--white); border-radius: var(--radius-md);
+      padding: 40px 32px; text-align: center;
+      border: 2px solid transparent;
+      transition: all 0.4s ease; position: relative;
+    }
+    .pricing-card.popular {
+      border-color: var(--primary);
+      box-shadow: var(--shadow-lg);
+      transform: scale(1.04);
+    }
+    .pricing-card.popular .popular-badge {
+      position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+      padding: 6px 20px; border-radius: var(--radius-full);
+      background: var(--primary); color: white;
+      font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .pricing-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-4px);
+    }
+    .pricing-card.popular:hover { transform: scale(1.04) translateY(-4px); }
+    .pricing-icon {
+      width: 64px; height: 64px; border-radius: 20px;
+      margin: 0 auto 20px; display: flex;
+      align-items: center; justify-content: center;
+      font-size: 1.6rem;
+    }
+    .pricing-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 4px; }
+    .pricing-card .price {
+      font-size: 2.5rem; font-weight: 800; color: var(--primary);
+      margin: 16px 0 4px;
+    }
+    .pricing-card .price small {
+      font-size: 0.9rem; font-weight: 500; color: var(--text-muted);
+    }
+    .pricing-card .price-desc {
+      font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 24px;
+    }
+    .pricing-features { margin-bottom: 32px; }
+    .pricing-features li {
+      padding: 8px 0; font-size: 0.9rem; color: var(--text-secondary);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .pricing-features li svg { color: var(--primary); flex-shrink: 0; }
+
+    /* ── Testimonials ──────────────────────────────────────────── */
+    .testimonials {
+      padding: var(--section-py) 0;
+      background: var(--white);
+    }
+    .testimonials-header { text-align: center; margin-bottom: 56px; }
+    .testimonials-header .section-subtitle { margin: 0 auto; }
+    .testimonials-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .testimonial-card {
+      background: var(--white); border-radius: var(--radius-md);
+      padding: 32px; border: 1px solid #f0ecf9;
+      transition: all 0.4s ease;
+    }
+    .testimonial-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-4px);
+    }
+    .testimonial-stars {
+      display: flex; gap: 2px; margin-bottom: 16px;
+      color: #FF9800; font-size: 1rem;
+    }
+    .testimonial-card blockquote {
+      font-size: 0.95rem; color: var(--text-secondary);
+      line-height: 1.7; margin-bottom: 20px;
+      font-style: italic;
+    }
+    .testimonial-author {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .testimonial-avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      object-fit: cover;
+    }
+    .testimonial-author h4 { font-size: 0.9rem; font-weight: 700; }
+    .testimonial-author p { font-size: 0.78rem; color: var(--text-muted); }
+
+    /* ── Stats Banner ──────────────────────────────────────────── */
+    .stats-banner {
+      padding: 72px 0;
+      background: var(--hero-gradient);
+      position: relative; overflow: hidden;
+    }
+    .stats-banner::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.08) 0%, transparent 70%);
+    }
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 32px; text-align: center;
+      position: relative; z-index: 1;
+    }
+    .stat-item h3 {
+      font-size: 2.5rem; font-weight: 800; color: var(--white);
+      margin-bottom: 4px;
+    }
+    .stat-item p {
+      font-size: 0.88rem; color: rgba(255,255,255,0.75);
+      font-weight: 500;
+    }
+
+    /* ── Download CTA ──────────────────────────────────────────── */
+    .download {
+      padding: var(--section-py) 0;
+      background: var(--white);
+    }
+    .download-card {
+      background: var(--hero-gradient);
+      border-radius: var(--radius-lg);
+      padding: 72px 64px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 48px; align-items: center;
+      position: relative; overflow: hidden;
+    }
+    .download-card::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(circle at 80% 20%, rgba(255,255,255,0.12) 0%, transparent 60%);
+    }
+    .download-content { position: relative; z-index: 1; }
+    .download-content h2 {
+      font-family: 'Playfair Display', serif; font-weight: 800;
+      font-size: clamp(1.8rem, 3vw, 2.6rem); color: var(--white);
+      line-height: 1.2; margin-bottom: 16px;
+    }
+    .download-content p {
+      font-size: 1.05rem; color: rgba(255,255,255,0.85);
+      line-height: 1.7; margin-bottom: 32px;
+    }
+    .download-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+    .store-btn {
+      display: inline-flex; align-items: center; gap: 12px;
+      padding: 14px 28px; border-radius: var(--radius-sm);
+      background: rgba(0,0,0,0.3); color: white;
+      backdrop-filter: blur(10px);
+      border: 1.5px solid rgba(255,255,255,0.2);
+      transition: all 0.3s; cursor: pointer;
+    }
+    .store-btn:hover {
+      background: rgba(0,0,0,0.5);
+      transform: translateY(-2px);
+    }
+    .store-btn svg { width: 28px; height: 28px; }
+    .store-btn-text { text-align: left; }
+    .store-btn-text small { font-size: 0.65rem; opacity: 0.8; display: block; }
+    .store-btn-text span { font-size: 1rem; font-weight: 700; }
+    .download-visual {
+      display: flex; justify-content: center;
+      position: relative; z-index: 1;
+    }
+    .download-phone {
+      width: 240px; height: 480px; background: white;
+      border-radius: 32px; border: 6px solid #2a2a2a;
+      overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+      background: linear-gradient(180deg, #7C5CFC 0%, #C9ADFF 40%, #F3EEFF 40%, #FAFAFA 100%);
+    }
+
+    /* ── Footer ────────────────────────────────────────────────── */
+    .footer {
+      padding: 64px 0 32px;
+      background: #0f0f1a;
+      color: rgba(255,255,255,0.7);
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px; margin-bottom: 48px;
+    }
+    .footer-brand h3 {
+      font-size: 1.3rem; font-weight: 800; color: white;
+      margin-bottom: 12px;
+    }
+    .footer-brand .highlight { color: var(--primary); }
+    .footer-brand p {
+      font-size: 0.88rem; line-height: 1.7;
+      max-width: 300px; margin-bottom: 20px;
+    }
+    .footer-socials {
+      display: flex; gap: 12px;
+    }
+    .footer-socials a {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: rgba(255,255,255,0.08);
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.3s; color: rgba(255,255,255,0.6);
+    }
+    .footer-socials a:hover {
+      background: var(--primary); color: white;
+      transform: translateY(-2px);
+    }
+    .footer-col h4 {
+      font-size: 0.9rem; font-weight: 700; color: white;
+      margin-bottom: 16px; text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .footer-col a {
+      display: block; font-size: 0.88rem; padding: 6px 0;
+      transition: color 0.3s;
+    }
+    .footer-col a:hover { color: var(--primary); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 24px; text-align: center;
+      font-size: 0.82rem;
+    }
+
+    /* ── Responsive ────────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .features-grid, .testimonials-grid, .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+      .nanny-grid { grid-template-columns: repeat(2, 1fr); }
+      .steps { grid-template-columns: repeat(2, 1fr); }
+      .steps::before { display: none; }
+      .footer-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      :root { --section-py: 64px; }
+      .nav-links { display: none; }
+      .nav-mobile-toggle { display: block; }
+      .hero .container {
+        grid-template-columns: 1fr;
+        text-align: center; padding-top: 120px;
+      }
+      .hero-subtitle { margin: 0 auto 40px; }
+      .hero-actions { justify-content: center; }
+      .hero-stats { justify-content: center; }
+      .hero-visual { margin-top: 48px; }
+      .float-card { display: none; }
+      .features-grid, .testimonials-grid, .pricing-grid { grid-template-columns: 1fr; }
+      .nanny-grid { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: 1fr; gap: 40px; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .download-card { grid-template-columns: 1fr; text-align: center; padding: 48px 32px; }
+      .download-buttons { justify-content: center; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .pricing-card.popular { transform: none; }
+      .pricing-card.popular:hover { transform: translateY(-4px); }
+    }
+    @media (max-width: 480px) {
+      .phone-mockup { width: 240px; height: 500px; }
+      .hero-stats { flex-direction: column; gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════ NAV ═══════════════ -->
+<nav class="nav" id="navbar">
+  <div class="container nav-inner">
+    <a href="#" class="nav-logo">
+      <div class="nav-logo-icon">🍼</div>
+      <span>Nanny<span class="highlight">Care</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#trained">Training</a>
+      <a href="#how-it-works">How It Works</a>
+      <a href="#nannies">Nannies</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#testimonials">Reviews</a>
+    </div>
+    <div class="nav-cta">
+      <a href="#download" class="btn btn-primary">Download App</a>
+    </div>
+    <button class="nav-mobile-toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero" id="hero">
+  <div class="hero-blob hero-blob-1"></div>
+  <div class="hero-blob hero-blob-2"></div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="pulse"></span>
+        500+ Nannies Available Now
+      </div>
+      <h1 class="hero-title">
+        Trusted Childcare,<br />Right at Your <em>Fingertips</em>
+      </h1>
+      <p class="hero-subtitle">
+        NannyCare connects busy parents with verified, background-checked nannies.
+        Book in seconds, manage subscriptions, and give your child the best care — all from one app.
+      </p>
+      <div class="hero-actions">
+        <a href="#download" class="btn btn-primary">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+          Get the App
+        </a>
+        <a href="#how-it-works" class="btn btn-white">Learn More</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-number">10K+</div>
+          <div class="hero-stat-label">Happy Families</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-number">500+</div>
+          <div class="hero-stat-label">Verified Nannies</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-number">4.9★</div>
+          <div class="hero-stat-label">App Rating</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <!-- Floating cards -->
+      <div class="float-card float-card-1">
+        <div class="float-card-icon">✅</div>
+        <div>
+          <div style="font-size:0.75rem;color:var(--text-muted)">Booking</div>
+          <div>Confirmed!</div>
+        </div>
+      </div>
+      <div class="float-card float-card-2">
+        <div class="float-card-icon">⭐</div>
+        <div>
+          <div style="font-size:0.75rem;color:var(--text-muted)">Rating</div>
+          <div>4.9 / 5.0</div>
+        </div>
+      </div>
+      <div class="float-card float-card-3">
+        <div class="float-card-icon">🛡️</div>
+        <div>
+          <div style="font-size:0.75rem;color:var(--text-muted)">All Nannies</div>
+          <div>Verified</div>
+        </div>
+      </div>
+      <!-- Phone mockup -->
+      <div class="phone-mockup">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <div class="phone-header">
+            <h3>Good Morning, Anjali 👋</h3>
+            <p>Find the perfect nanny for your kids</p>
+          </div>
+          <div class="phone-cards">
+            <div class="phone-card">
+              <img class="phone-card-avatar" src="https://i.pravatar.cc/100?img=1" alt="Priya" style="border-radius:12px" />
+              <div class="phone-card-info">
+                <h4>Priya Verma</h4>
+                <p>7 yrs · Infant care</p>
+              </div>
+              <div class="phone-card-rating">⭐ 4.9</div>
+            </div>
+            <div class="phone-card">
+              <img class="phone-card-avatar" src="https://i.pravatar.cc/100?img=5" alt="Sunita" style="border-radius:12px" />
+              <div class="phone-card-info">
+                <h4>Sunita Devi</h4>
+                <p>5 yrs · Toddler care</p>
+              </div>
+              <div class="phone-card-rating">⭐ 4.7</div>
+            </div>
+            <div class="phone-card">
+              <img class="phone-card-avatar" src="https://i.pravatar.cc/100?img=16" alt="Kavita" style="border-radius:12px" />
+              <div class="phone-card-info">
+                <h4>Kavita Singh</h4>
+                <p>10 yrs · Special needs</p>
+              </div>
+              <div class="phone-card-rating">⭐ 4.8</div>
+            </div>
+            <div class="phone-card">
+              <img class="phone-card-avatar" src="https://i.pravatar.cc/100?img=20" alt="Rekha" style="border-radius:12px" />
+              <div class="phone-card-info">
+                <h4>Rekha Patel</h4>
+                <p>4 yrs · Bilingual</p>
+              </div>
+              <div class="phone-card-rating">⭐ 4.6</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FEATURES ═══════════════ -->
+<section class="features" id="features">
+  <div class="container">
+    <div class="features-header animate-on-scroll">
+      <div class="section-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        Why NannyCare
+      </div>
+      <h2 class="section-title">Everything You Need for<br /><span class="gradient-text">Stress-Free Childcare</span></h2>
+      <p class="section-subtitle">From booking to payment, we've made every step simple and secure so you can focus on what matters most.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card animate-on-scroll">
+        <div class="feature-icon">🔐</div>
+        <h3>Secure OTP Login</h3>
+        <p>Log in instantly with your mobile number and a one-time password. No passwords to remember, no security worries.</p>
+      </div>
+      <div class="feature-card animate-on-scroll">
+        <div class="feature-icon">🔍</div>
+        <h3>Smart Search & Filters</h3>
+        <p>Find the perfect nanny by date, time, specialty, rating, and distance. Our intelligent matching saves you time.</p>
+      </div>
+      <div class="feature-card animate-on-scroll">
+        <div class="feature-icon">📅</div>
+        <h3>Easy Booking</h3>
+        <p>Book flexible 3-hour minimum slots between 8 AM and 8 PM. See real-time availability and confirm in seconds.</p>
+      </div>
+      <div class="feature-card animate-on-scroll">
+        <div class="feature-icon">🔄</div>
+        <h3>Subscription Plans</h3>
+        <p>Set up recurring bookings with your favorite nanny. Modify, pause, or cancel anytime — total flexibility.</p>
+      </div>
+      <div class="feature-card animate-on-scroll">
+        <div class="feature-icon">👶</div>
+        <h3>Baby Profiles</h3>
+        <p>Store your children's details, preferences, and special needs so nannies are always prepared for the best care.</p>
+      </div>
+      <div class="feature-card animate-on-scroll">
+        <div class="feature-icon">🔔</div>
+        <h3>Real-Time Notifications</h3>
+        <p>Stay informed with instant updates on bookings, payments, and important alerts — all organized by date.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ TRAINED NANNIES ═══════════════ -->
+<section class="trained" id="trained">
+  <div class="container">
+    <div class="trained-inner">
+      <div class="trained-visual animate-on-scroll">
+        <div class="trained-card">
+          <div class="trained-card-icon" style="background:#FFF3E0">🩺</div>
+          <h4>First Aid Certified</h4>
+          <p>CPR & emergency response trained for infant and child safety</p>
+        </div>
+        <div class="trained-card">
+          <div class="trained-card-icon" style="background:#E8F5E9">🎓</div>
+          <h4>Childcare Diploma</h4>
+          <p>Professional early childhood education credentials verified</p>
+        </div>
+        <div class="trained-card">
+          <div class="trained-card-icon" style="background:#E3F2FD">🛡️</div>
+          <h4>Background Verified</h4>
+          <p>Thorough police verification & reference checks completed</p>
+        </div>
+        <div class="trained-card">
+          <div class="trained-card-icon" style="background:var(--primary-50)">🧠</div>
+          <h4>Ongoing Training</h4>
+          <p>Monthly workshops on child psychology & developmental care</p>
+        </div>
+      </div>
+      <div class="trained-content animate-on-scroll">
+        <div class="section-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Professionally Trained
+        </div>
+        <h2 class="section-title">Not Just Nannies.<br/><span class="gradient-text">Trained Professionals.</span></h2>
+        <p class="section-subtitle">Every NannyCare nanny goes through a rigorous 40-hour training program covering first aid, child safety, nutrition, and developmental milestones — before they ever meet your child.</p>
+        <div class="checklist">
+          <div class="checklist-item">
+            <div class="checklist-icon">✓</div>
+            <div>
+              <h4>Certified First Aid & CPR Training</h4>
+              <p>Every nanny completes Red Cross certified first aid with infant/child CPR — renewed annually.</p>
+            </div>
+          </div>
+          <div class="checklist-item">
+            <div class="checklist-icon">✓</div>
+            <div>
+              <h4>Child Safety & Hygiene Protocols</h4>
+              <p>Trained in allergen awareness, safe sleep practices, sanitisation, and emergency evacuation.</p>
+            </div>
+          </div>
+          <div class="checklist-item">
+            <div class="checklist-icon">✓</div>
+            <div>
+              <h4>Nutrition & Developmental Care</h4>
+              <p>Understands age-appropriate meals, milestones tracking, and engaging activities for every age group.</p>
+            </div>
+          </div>
+          <div class="checklist-item">
+            <div class="checklist-icon">✓</div>
+            <div>
+              <h4>Behavioral & Emotional Support</h4>
+              <p>Equipped to handle separation anxiety, tantrums, and positive reinforcement techniques.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FLEXIBILITY CTA ═══════════════ -->
+<section class="flex-cta">
+  <div class="container">
+    <div class="flex-cta-card">
+      <div class="flex-cta-header animate-on-scroll">
+        <h2>Book Your Way. No Lock-ins. Pure Flexibility.</h2>
+        <p>Start with a single booking to try us out. Love the experience? Subscribe and save — it's that simple.</p>
+      </div>
+      <div class="flex-cta-grid">
+        <div class="flex-cta-item animate-on-scroll">
+          <div class="flex-cta-icon">⏰</div>
+          <h3>Book Anytime</h3>
+          <p>Need a nanny for just 3 hours? No problem. Book any slot between 8 AM – 8 PM with zero commitment. Perfect for date nights, errands, or work calls.</p>
+          <span class="cta-highlight" style="background:rgba(76,175,80,0.2);color:#81C784;">Min. 3 Hours</span>
+        </div>
+        <div class="flex-cta-item animate-on-scroll">
+          <div class="flex-cta-icon">💜</div>
+          <h3>Try Before You Subscribe</h3>
+          <p>Book a single session first. Meet your nanny, see how they interact with your child, and decide if it's the right fit — no pressure at all.</p>
+          <span class="cta-highlight" style="background:rgba(124,92,252,0.2);color:#B08DFF;">Risk-Free Trial</span>
+        </div>
+        <div class="flex-cta-item animate-on-scroll">
+          <div class="flex-cta-icon">🔄</div>
+          <h3>Subscribe & Save 15%</h3>
+          <p>Love your nanny? Lock in a recurring weekly schedule and save 15%. Modify, pause, or cancel your subscription anytime with one tap.</p>
+          <span class="cta-highlight" style="background:rgba(255,152,0,0.2);color:#FFB74D;">Save 15%</span>
+        </div>
+      </div>
+      <div class="flex-arrow animate-on-scroll">
+        <div class="arrow-line"></div>
+        <div class="arrow-text">try → love → subscribe</div>
+        <div class="arrow-line"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ HOW IT WORKS ═══════════════ -->
+<section class="how-it-works" id="how-it-works">
+  <div class="container">
+    <div class="how-header animate-on-scroll">
+      <div class="section-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        Simple Process
+      </div>
+      <h2 class="section-title">Book a Nanny in<br /><span class="gradient-text">4 Simple Steps</span></h2>
+      <p class="section-subtitle">Getting started is easy. Download the app and have a trusted nanny at your doorstep in minutes.</p>
+    </div>
+    <div class="steps">
+      <div class="step animate-on-scroll">
+        <div class="step-number"><span>📱</span></div>
+        <h3>Download & Sign Up</h3>
+        <p>Get the app and sign up with your mobile number. Instant OTP verification — you're in within 30 seconds.</p>
+      </div>
+      <div class="step animate-on-scroll">
+        <div class="step-number"><span>🔎</span></div>
+        <h3>Search & Compare</h3>
+        <p>Browse verified nannies near you. Filter by specialty, rating, experience, and availability to find your perfect match.</p>
+      </div>
+      <div class="step animate-on-scroll">
+        <div class="step-number"><span>✅</span></div>
+        <h3>Book & Pay</h3>
+        <p>Select your preferred time slot, apply any promo codes, and confirm your booking with secure in-app payments.</p>
+      </div>
+      <div class="step animate-on-scroll">
+        <div class="step-number"><span>😊</span></div>
+        <h3>Relax & Enjoy</h3>
+        <p>Your verified nanny arrives on time. Track bookings, manage subscriptions, and review your experience — all in the app.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ NANNY SHOWCASE ═══════════════ -->
+<section class="nanny-showcase" id="nannies">
+  <div class="container">
+    <div class="nanny-header animate-on-scroll">
+      <div class="section-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4-4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        Top-Rated Nannies
+      </div>
+      <h2 class="section-title">Meet Our <span class="gradient-text">Trusted Nannies</span></h2>
+      <p class="section-subtitle">Every nanny on NannyCare is background-checked, verified, and reviewed by real parents like you.</p>
+    </div>
+    <div class="nanny-grid">
+      <div class="nanny-card animate-on-scroll">
+        <div class="nanny-card-img" style="background-image:url('https://i.pravatar.cc/400?img=1')">
+          <span class="nanny-card-badge badge-online">● Online</span>
+        </div>
+        <div class="nanny-card-body">
+          <h3>Priya Verma</h3>
+          <div class="nanny-card-meta">
+            <span>⭐ 4.9 (24 reviews)</span>
+            <span>·</span>
+            <span>7 yrs exp</span>
+          </div>
+          <div class="nanny-specialties">
+            <span>Infant care</span>
+            <span>First aid</span>
+            <span>Music therapy</span>
+          </div>
+        </div>
+        <div class="nanny-card-footer">
+          <div class="nanny-rate">₹250<small>/hr</small></div>
+          <a href="#download" class="btn btn-primary" style="padding:10px 20px;font-size:0.8rem">Book Now</a>
+        </div>
+      </div>
+      <div class="nanny-card animate-on-scroll">
+        <div class="nanny-card-img" style="background-image:url('https://i.pravatar.cc/400?img=5')">
+          <span class="nanny-card-badge badge-online">● Online</span>
+        </div>
+        <div class="nanny-card-body">
+          <h3>Sunita Devi</h3>
+          <div class="nanny-card-meta">
+            <span>⭐ 4.7 (18 reviews)</span>
+            <span>·</span>
+            <span>5 yrs exp</span>
+          </div>
+          <div class="nanny-specialties">
+            <span>Toddler care</span>
+            <span>Meal prep</span>
+            <span>Storytelling</span>
+          </div>
+        </div>
+        <div class="nanny-card-footer">
+          <div class="nanny-rate">₹300<small>/hr</small></div>
+          <a href="#download" class="btn btn-primary" style="padding:10px 20px;font-size:0.8rem">Book Now</a>
+        </div>
+      </div>
+      <div class="nanny-card animate-on-scroll">
+        <div class="nanny-card-img" style="background-image:url('https://i.pravatar.cc/400?img=16')">
+          <span class="nanny-card-badge badge-online">● Online</span>
+        </div>
+        <div class="nanny-card-body">
+          <h3>Kavita Singh</h3>
+          <div class="nanny-card-meta">
+            <span>⭐ 4.8 (32 reviews)</span>
+            <span>·</span>
+            <span>10 yrs exp</span>
+          </div>
+          <div class="nanny-specialties">
+            <span>Special needs</span>
+            <span>Montessori</span>
+            <span>CPR certified</span>
+          </div>
+        </div>
+        <div class="nanny-card-footer">
+          <div class="nanny-rate">₹250<small>/hr</small></div>
+          <a href="#download" class="btn btn-primary" style="padding:10px 20px;font-size:0.8rem">Book Now</a>
+        </div>
+      </div>
+      <div class="nanny-card animate-on-scroll">
+        <div class="nanny-card-img" style="background-image:url('https://i.pravatar.cc/400?img=20')">
+          <span class="nanny-card-badge badge-online">● Online</span>
+        </div>
+        <div class="nanny-card-body">
+          <h3>Rekha Patel</h3>
+          <div class="nanny-card-meta">
+            <span>⭐ 4.6 (15 reviews)</span>
+            <span>·</span>
+            <span>4 yrs exp</span>
+          </div>
+          <div class="nanny-specialties">
+            <span>Bilingual</span>
+            <span>Activity planning</span>
+          </div>
+        </div>
+        <div class="nanny-card-footer">
+          <div class="nanny-rate">₹275<small>/hr</small></div>
+          <a href="#download" class="btn btn-primary" style="padding:10px 20px;font-size:0.8rem">Book Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ STATS BANNER ═══════════════ -->
+<section class="stats-banner">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item animate-on-scroll">
+        <h3>10,000+</h3>
+        <p>Happy Families Served</p>
+      </div>
+      <div class="stat-item animate-on-scroll">
+        <h3>500+</h3>
+        <p>Verified Nannies</p>
+      </div>
+      <div class="stat-item animate-on-scroll">
+        <h3>50,000+</h3>
+        <p>Bookings Completed</p>
+      </div>
+      <div class="stat-item animate-on-scroll">
+        <h3>4.9 ★</h3>
+        <p>Average App Rating</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ PRICING ═══════════════ -->
+<section class="pricing" id="pricing">
+  <div class="container">
+    <div class="pricing-header animate-on-scroll">
+      <div class="section-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+        Flexible Pricing
+      </div>
+      <h2 class="section-title">Plans That Fit <span class="gradient-text">Every Family</span></h2>
+      <p class="section-subtitle">Whether you need occasional help or daily care, we have the perfect plan for you.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card animate-on-scroll">
+        <div class="pricing-icon" style="background:var(--primary-50)">🌟</div>
+        <h3>Pay Per Booking</h3>
+        <div class="price">₹250<small>/hr</small></div>
+        <p class="price-desc">Starting rate · No commitment</p>
+        <ul class="pricing-features">
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> On-demand booking</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> 3-hour minimum slot</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Verified nannies only</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> In-app notifications</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Easy cancellation</li>
+        </ul>
+        <a href="#download" class="btn btn-outline" style="width:100%;justify-content:center">Get Started</a>
+      </div>
+      <div class="pricing-card popular animate-on-scroll">
+        <div class="popular-badge">Most Popular</div>
+        <div class="pricing-icon" style="background:var(--primary-50)">👑</div>
+        <h3>Weekly Subscription</h3>
+        <div class="price">₹7,499<small>/wk</small></div>
+        <p class="price-desc">Save 15% · Recurring weekly care</p>
+        <ul class="pricing-features">
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Choose your nanny</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Fixed weekly schedule</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Pause or modify anytime</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Priority support</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> 15% savings guaranteed</li>
+        </ul>
+        <a href="#download" class="btn btn-primary" style="width:100%;justify-content:center">Subscribe Now</a>
+      </div>
+    <div class="pricing-card animate-on-scroll">
+      <div class="pricing-icon" style="background:var(--primary-50)">⚙️</div>
+      <h3>Custom Plan</h3>
+      <div class="price">Build Your Own</div>
+      <p class="price-desc">Choose days & hours that fit you</p>
+      <ul class="pricing-features">
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Select 1-7 days per week</li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Choose 3-12 hours per day</li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Real-time price calculator</li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Save 10-20% on total</li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Modify anytime</li>
+      </ul>
+      <a href="#download" class="btn btn-outline" style="width:100%;justify-content:center">Create Custom Plan</a>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ TESTIMONIALS ═══════════════ -->
+<section class="testimonials" id="testimonials">
+  <div class="container">
+    <div class="testimonials-header animate-on-scroll">
+      <div class="section-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        What Parents Say
+      </div>
+      <h2 class="section-title">Loved by <span class="gradient-text">10,000+ Families</span></h2>
+      <p class="section-subtitle">Don't just take our word for it. Hear directly from parents who trust NannyCare every day.</p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card animate-on-scroll">
+        <div class="testimonial-stars">★★★★★</div>
+        <blockquote>"NannyCare has been a lifesaver! The booking process is so smooth, and Priya has been wonderful with my toddler. The subscription plans save us so much money."</blockquote>
+        <div class="testimonial-author">
+          <img class="testimonial-avatar" src="https://i.pravatar.cc/100?img=36" alt="Anjali" />
+          <div>
+            <h4>Anjali Sharma</h4>
+            <p>Mother of 2 · Delhi</p>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card animate-on-scroll">
+        <div class="testimonial-stars">★★★★★</div>
+        <blockquote>"As a working mom, finding a trusted nanny was stressful. NannyCare's verification process gave me peace of mind. The real-time notifications are excellent."</blockquote>
+        <div class="testimonial-author">
+          <img class="testimonial-avatar" src="https://i.pravatar.cc/100?img=44" alt="Ritu" />
+          <div>
+            <h4>Ritu Mehta</h4>
+            <p>Software Engineer · Bangalore</p>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card animate-on-scroll">
+        <div class="testimonial-stars">★★★★★</div>
+        <blockquote>"The app is beautifully designed and so easy to use. I love that I can manage my baby's profile and special needs, so the nanny is always prepared."</blockquote>
+        <div class="testimonial-author">
+          <img class="testimonial-avatar" src="https://i.pravatar.cc/100?img=26" alt="Vikram" />
+          <div>
+            <h4>Vikram Patel</h4>
+            <p>Father of 1 · Mumbai</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ DOWNLOAD CTA ═══════════════ -->
+<section class="download" id="download">
+  <div class="container">
+    <div class="download-card">
+      <div class="download-content animate-on-scroll">
+        <h2>Ready to Find Your Perfect Nanny?</h2>
+        <p>Download NannyCare today and join thousands of happy families. Your first booking is just minutes away.</p>
+        <div class="download-buttons">
+          <a href="#" class="store-btn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+            <div class="store-btn-text">
+              <small>Download on the</small>
+              <span>App Store</span>
+            </div>
+          </a>
+          <a href="#" class="store-btn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 20.5v-17c0-.59.34-1.11.84-1.35L13.69 12l-9.85 9.85c-.5-.24-.84-.76-.84-1.35zm13.81-5.38L6.05 21.34l8.49-8.49 2.27 2.27zm.91-.91L19.59 12l-1.87-2.21-2.27 2.27 2.27 2.15zM6.05 2.66l10.76 6.22-2.27 2.27-8.49-8.49z"/></svg>
+            <div class="store-btn-text">
+              <small>Get it on</small>
+              <span>Google Play</span>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="download-visual animate-on-scroll">
+        <div class="download-phone"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>Nanny<span class="highlight">Care</span></h3>
+        <p>Trusted childcare at your fingertips. Connecting families with verified, caring nannies since 2024.</p>
+        <div class="footer-socials">
+          <a href="#" aria-label="Twitter">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="#" aria-label="Instagram">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="#" aria-label="LinkedIn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+          <a href="#" aria-label="Facebook">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#nannies">Our Nannies</a>
+        <a href="#testimonials">Reviews</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#">About Us</a>
+        <a href="#">Careers</a>
+        <a href="#">Blog</a>
+        <a href="#">Press Kit</a>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <a href="#">Help Center</a>
+        <a href="#">Safety</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Privacy Policy</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024–2026 NannyCare. All rights reserved. Made with 💜 for families everywhere.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════ SCRIPTS ═══════════════ -->
+<script>
+  // Navbar scroll effect
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  // Scroll animation observer
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.animate-on-scroll').forEach((el) => observer.observe(el));
+
+  // Mobile nav toggle (simple)
+  const toggle = document.getElementById('navToggle');
+  const navLinks = document.querySelector('.nav-links');
+  toggle.addEventListener('click', () => {
+    const isOpen = navLinks.style.display === 'flex';
+    navLinks.style.display = isOpen ? 'none' : 'flex';
+    navLinks.style.flexDirection = 'column';
+    navLinks.style.position = 'absolute';
+    navLinks.style.top = '60px';
+    navLinks.style.right = '24px';
+    navLinks.style.background = 'white';
+    navLinks.style.padding = '20px';
+    navLinks.style.borderRadius = '16px';
+    navLinks.style.boxShadow = '0 8px 32px rgba(0,0,0,0.12)';
+    navLinks.style.gap = '16px';
+  });
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach((a) => {
+    a.addEventListener('click', (e) => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Close mobile menu
+        if (window.innerWidth <= 768) navLinks.style.display = 'none';
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
