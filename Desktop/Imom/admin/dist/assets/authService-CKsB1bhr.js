@@ -1,0 +1,1 @@
+import{a as e,S as n,A as a}from"./api-BuIB34Q3.js";const p=async s=>(await e.post(a.SEND_OTP,{mobile:s})).data,c=async(s,t)=>(await e.post(a.VERIFY_OTP,{mobile:s,otp:t})).data,S=async s=>(await e.post(a.RESEND_OTP,{mobile:s})).data,i=async()=>(await e.get(n.GET_DASHBOARD_STATS)).data;export{i as g,S as r,p as s,c as v};
